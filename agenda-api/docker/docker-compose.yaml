@@ -1,0 +1,17 @@
+version: "3"
+services:
+  mysqldb:
+    image: mysql
+    container_name: containerMysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: agendadb
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    ports:
+      - "3307:3306"
+    env_file:
+      - .env
+    cap_add:
+      - SYS_NICE

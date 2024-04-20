@@ -1,2 +1,16 @@
-package com.codedeving.agendaapi.core.usecases;public class FavoriteContatoUseCaseImpl {
+package com.codedeving.agendaapi.core.usecases;
+
+import com.codedeving.agendaapi.core.gateways.ContatoGateway;
+
+public class FavoriteContatoUseCaseImpl implements FavoriteContatoUseCase{
+    private final ContatoGateway contatoGateway;
+
+    public FavoriteContatoUseCaseImpl(ContatoGateway contatoGateway) {
+        this.contatoGateway = contatoGateway;
+    }
+
+    @Override
+    public void execute(Integer id, Boolean favorito) {
+        contatoGateway.favoriteContato(id, favorito);
+    }
 }

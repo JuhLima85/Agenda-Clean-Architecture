@@ -1,2 +1,52 @@
-package com.codedeving.agendaapi.infrastructure.controllers;public class ContatoController {
+package com.codedeving.agendaapi.infrastructure.controllers;
+
+import com.codedeving.agendaapi.core.domain.Contato;
+import com.codedeving.agendaapi.core.usecases.CreateContatoUseCase;
+import com.codedeving.agendaapi.core.usecases.DeleteContatoUseCase;
+import com.codedeving.agendaapi.core.usecases.FavoriteContatoUseCase;
+import com.codedeving.agendaapi.core.usecases.GetAllContatosUseCase;
+import com.codedeving.agendaapi.infrastructure.converters.ContatoDtoMapper;
+import com.codedeving.agendaapi.infrastructure.dtos.ContatoDto;
+import lombok.AllArgsConstructor;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+@RestController
+@RequestMapping("api/contatos")
+@AllArgsConstructor
+public class ContatoController {
+
+    private final CreateContatoUseCase createContatoUseCase;
+    private final ContatoDtoMapper contatoDtoMapper;
+    private final DeleteContatoUseCase deleteContatoUseCase;
+    private final GetAllContatosUseCase getAllContatosUseCase;
+    private final FavoriteContatoUseCase favoriteContatoUseCase;
+
+    @PostMapping
+    public ContatoDto createContato(@RequestBody ContatoDto contatoDto){
+        Contato contato = createContatoUseCase.execute(contatoDtoMapper.toDomain(contatoDto));
+        return contatoDtoMapper.toDTO(contato);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteContato(@PathVariable Integer id){
+        deleteContatoUseCase.execute(id);
+    }
+
+    @GetMapping
+    public List<ContatoDto> obtainAll(){
+        return getAllContatosUseCase
+                .execute()
+                .stream()
+                .map(contatoDtoMapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    @PatchMapping("/{id}/favorito")
+    public void favorite(@PathVariable Integer id, @RequestBody Boolean favorito){
+        favoriteContatoUseCase.execute(id, favorito);
+    }
+
 }

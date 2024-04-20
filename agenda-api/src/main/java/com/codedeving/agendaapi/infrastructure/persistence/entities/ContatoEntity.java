@@ -1,4 +1,4 @@
-package com.codedeving.agendaapi.infrastructure.persistence;
+package com.codedeving.agendaapi.infrastructure.persistence.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Table(name - "TB_CONTATO")
+@Table(name = "TB_CONTATO")
 public class ContatoEntity {
 
     @Id

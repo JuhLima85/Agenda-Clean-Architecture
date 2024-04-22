@@ -4,4 +4,6 @@ import com.codedeving.agendaapi.infrastructure.persistence.entities.ContatoEntit
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ContatoRepository extends JpaRepository<ContatoEntity, Integer> {
+
+    ContatoEntity findByEmail(String email);
 }

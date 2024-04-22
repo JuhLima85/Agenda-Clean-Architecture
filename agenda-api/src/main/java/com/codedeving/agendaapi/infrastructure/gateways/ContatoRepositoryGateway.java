@@ -28,6 +28,15 @@ public class ContatoRepositoryGateway implements ContatoGateway {
     }
 
     @Override
+    public Contato findByEmail(String email) {
+        ContatoEntity entity = contatoRepository.findByEmail(email);
+        if (entity == null){
+            return null;
+        }
+        return entityMapper.toContato(entity);
+    }
+
+    @Override
     public void deleteContato(Integer id) {
         contatoRepository.deleteById(id);
     }

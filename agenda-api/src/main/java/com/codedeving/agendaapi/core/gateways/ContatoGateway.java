@@ -3,6 +3,7 @@ package com.codedeving.agendaapi.core.gateways;
 import com.codedeving.agendaapi.core.domain.Contato;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ContatoGateway {
 
@@ -13,4 +14,6 @@ public interface ContatoGateway {
     List<Contato> obtainAllContatos();
 
     void favoriteContato(Integer id, Boolean favorito);
+
+    Contato updateContato(Integer id, Contato contato);
 }

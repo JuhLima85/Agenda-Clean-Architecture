@@ -21,4 +21,5 @@ public class ContatoEntity {
     private String nome;
     private String email;
     private Boolean favorito;
+
 }

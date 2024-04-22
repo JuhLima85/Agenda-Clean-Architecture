@@ -27,4 +27,9 @@ public class BeansConfig {
     public FavoriteContatoUseCase favoriteContatoUseCase(ContatoGateway contatoGateway){
         return new FavoriteContatoUseCaseImpl(contatoGateway);
     }
+
+    @Bean
+    public UpdateContatoUseCase updateContatoUseCase(ContatoGateway contatoGateway){
+        return  new UpdateContatoUseCaseImpl(contatoGateway);
+    }
 }

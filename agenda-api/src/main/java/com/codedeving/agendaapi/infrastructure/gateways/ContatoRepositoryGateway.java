@@ -3,6 +3,7 @@ package com.codedeving.agendaapi.infrastructure.gateways;
 import com.codedeving.agendaapi.core.domain.Contato;
 import com.codedeving.agendaapi.core.gateways.ContatoGateway;
 import com.codedeving.agendaapi.infrastructure.converters.ContatoEntityMapper;
+import com.codedeving.agendaapi.core.exceptions.ContatoNotFoundException;
 import com.codedeving.agendaapi.infrastructure.persistence.entities.ContatoEntity;
 import com.codedeving.agendaapi.infrastructure.persistence.repository.ContatoRepository;
 import lombok.RequiredArgsConstructor;
@@ -49,5 +50,19 @@ public class ContatoRepositoryGateway implements ContatoGateway {
         });
     }
 
+    @Override
+    public Contato updateContato(Integer id, Contato contato) {
+        ContatoEntity entity = entityMapper.toEntity(contato);
+
+        ContatoEntity existingEntity = contatoRepository.findById(id)
+                .orElseThrow(() -> new ContatoNotFoundException("Contato não encontrado"));
+
+        existingEntity.setNome(entity.getNome());
+        existingEntity.setEmail(entity.getEmail());
+        existingEntity.setFavorito(entity.getFavorito());
+
+        ContatoEntity contatoUpdate = contatoRepository.save(existingEntity);
+        return entityMapper.toContato(contatoUpdate);
+    }
 
 }

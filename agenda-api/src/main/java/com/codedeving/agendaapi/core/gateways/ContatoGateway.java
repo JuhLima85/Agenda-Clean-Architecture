@@ -14,8 +14,6 @@ public interface ContatoGateway {
 
     void deleteContato(Integer id);
 
-    //List<Contato> obtainAllContatos();
-
     Page<Contato> obtainAllContatos(Integer pagina, Integer tamanhoPagina);
 
    Contato obterContatoPorId(Integer id);

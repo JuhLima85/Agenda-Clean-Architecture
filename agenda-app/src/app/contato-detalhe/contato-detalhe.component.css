@@ -1,0 +1,13 @@
+.foto {
+    width: 400px;
+    height: 400px;
+}
+
+.imagem-container {
+    display: flex;
+    justify-content: center;
+}
+
+.hide-column {
+    display: none;
+}

@@ -6,12 +6,17 @@ import com.codedeving.agendaapi.infrastructure.converters.ContatoEntityMapper;
 import com.codedeving.agendaapi.core.exceptions.ContatoNotFoundException;
 import com.codedeving.agendaapi.infrastructure.persistence.entities.ContatoEntity;
 import com.codedeving.agendaapi.infrastructure.persistence.repository.ContatoRepository;
+import jakarta.servlet.http.Part;
 import lombok.RequiredArgsConstructor;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -42,19 +47,27 @@ public class ContatoRepositoryGateway implements ContatoGateway {
     }
 
     @Override
-    public List<Contato> obtainAllContatos() {
+    public Page<Contato> obtainAllContatos(Integer pagina, Integer tamanhoPagina) {
+        Sort sort = Sort.by(Sort.Direction.ASC, "nome");
+        PageRequest pageRequest = PageRequest.of(pagina, tamanhoPagina, sort);
         return contatoRepository
-                .findAll()
-                .stream()
-                .map(entityMapper::toContato)
-                .collect(Collectors.toList());
+                .findAll(pageRequest)
+                .map(entityMapper::toContato);
     }
 
     @Override
-    public void favoriteContato(Integer id, Boolean favorito) {
+    public Contato obterContatoPorId(Integer id) {
+        return contatoRepository.findById(id)
+                .map(entityMapper::toContato)
+                .orElseThrow(() -> new ContatoNotFoundException("Contato não encontrado"));
+    }
+
+    @Override
+    public void favoriteContato(Integer id) {
         Optional<ContatoEntity> contatoEntity = contatoRepository.findById(id);
         contatoEntity.ifPresent(c -> {
-            c.setFavorito(favorito);
+            boolean favorito = c.getFavorito() == Boolean.TRUE;
+            c.setFavorito(!favorito);
             contatoRepository.save(c);
         });
     }
@@ -74,4 +87,21 @@ public class ContatoRepositoryGateway implements ContatoGateway {
         return entityMapper.toContato(contatoUpdate);
     }
 
+    @Override
+    public byte[] addPhoto(Integer id, Part arquivo) {
+        Optional<ContatoEntity> contatoEntity = contatoRepository.findById(id);
+       return contatoEntity.map( c -> {
+            try{
+                InputStream is = arquivo.getInputStream();
+                byte[] bytes = new byte[(int) arquivo.getSize()];
+                IOUtils.readFully(is, bytes);
+                c.setFoto(bytes);
+                contatoRepository.save(c);
+                is.close();
+                return bytes;
+            }catch (IOException e){
+                return null;
+            }
+        }).orElse(null);
+    }
 }

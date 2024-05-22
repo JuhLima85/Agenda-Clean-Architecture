@@ -8,11 +8,11 @@ import org.springframework.stereotype.Component;
 public class ContatoDtoMapper {
 
     public ContatoDto toDTO(Contato contato){
-        return new ContatoDto(contato.nome(), contato.email(), contato.favorito());
+        return new ContatoDto(contato.id(), contato.nome(), contato.email(), contato.favorito(), contato.foto());
     }
 
     public Contato toDomain(ContatoDto contatoDto){
-        return new Contato(null, contatoDto.nome(), contatoDto.email(), contatoDto.favorito());
+        return new Contato(contatoDto.id(), contatoDto.nome(), contatoDto.email(), contatoDto.favorito(), contatoDto.foto());
     }
 
 }

@@ -1,0 +1,29 @@
+<mat-toolbar>    
+    <mat-icon>account_box</mat-icon>
+    Editar Contato
+</mat-toolbar>
+<div class="toolbar-spacing"></div>
+
+<mat-card class="mat-card-custom">
+    <mat-card-content class="mat-card-content-custom">
+      <form [formGroup]="contatoForm" (ngSubmit)="salvarAlteracoes()">
+        <mat-form-field class="full-width">
+          <mat-label>Nome</mat-label>
+          <input matInput type="text" formControlName="nome" required>
+        </mat-form-field>
+    
+        <mat-form-field class="full-width">
+          <mat-label>E-mail</mat-label>
+          <input matInput type="email" formControlName="email" required>
+        </mat-form-field>
+    
+        <div class="button-group">
+          <button mat-raised-button color="primary" type="submit" class="button-margin">Salvar</button>
+          <button mat-raised-button color="warn" type="button" (click)="cancelarEdicao()">Cancelar</button>
+        </div>
+      </form>
+    </mat-card-content>  
+  </mat-card>
+
+  
+  

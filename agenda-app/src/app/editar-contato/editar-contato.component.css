@@ -1,0 +1,19 @@
+.toolbar-spacing {
+    margin-top: 50px; 
+}
+
+.mat-card-custom {
+    width: 1000px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);     
+  } 
+  
+  .full-width {
+    width: 100%; 
+  }
+  
+  .button-margin {
+    margin-right: 8px; 
+}
+  
+  

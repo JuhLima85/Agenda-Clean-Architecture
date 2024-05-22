@@ -8,10 +8,10 @@ import org.springframework.stereotype.Component;
 public class ContatoEntityMapper {
 
     public ContatoEntity toEntity(Contato contato){
-        return new ContatoEntity(contato.id(), contato.nome(), contato.email(), contato.favorito());
+        return new ContatoEntity(contato.id(), contato.nome(), contato.email(), contato.favorito(), contato.foto());
     }
 
     public Contato toContato(ContatoEntity entity){
-        return new Contato(entity.getId(), entity.getNome(), entity.getEmail(), entity.getFavorito());
+        return new Contato(entity.getId(), entity.getNome(), entity.getEmail(), entity.getFavorito(), entity.getFoto());
     }
 }

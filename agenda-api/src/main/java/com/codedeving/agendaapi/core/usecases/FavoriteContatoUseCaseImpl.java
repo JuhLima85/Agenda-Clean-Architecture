@@ -10,7 +10,7 @@ public class FavoriteContatoUseCaseImpl implements FavoriteContatoUseCase{
     }
 
     @Override
-    public void execute(Integer id, Boolean favorito) {
-        contatoGateway.favoriteContato(id, favorito);
+    public void execute(Integer id) {
+        contatoGateway.favoriteContato(id);
     }
 }

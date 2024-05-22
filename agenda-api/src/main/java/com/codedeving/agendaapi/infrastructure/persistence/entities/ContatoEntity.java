@@ -1,9 +1,6 @@
 package com.codedeving.agendaapi.infrastructure.persistence.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,5 +18,6 @@ public class ContatoEntity {
     private String nome;
     private String email;
     private Boolean favorito;
-
+    @Column(columnDefinition = "LONGBLOB", length = 16777215)
+    private byte[] foto;
 }

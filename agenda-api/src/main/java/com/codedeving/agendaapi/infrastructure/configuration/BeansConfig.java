@@ -24,6 +24,11 @@ public class BeansConfig {
     }
 
     @Bean
+    public GetContatoByIdUseCase getContatoByIdUseCase(ContatoGateway contatoGateway){
+        return new GetContatoByIdUseCaseImpl(contatoGateway);
+    }
+
+    @Bean
     public FavoriteContatoUseCase favoriteContatoUseCase(ContatoGateway contatoGateway){
         return new FavoriteContatoUseCaseImpl(contatoGateway);
     }
@@ -31,5 +36,10 @@ public class BeansConfig {
     @Bean
     public UpdateContatoUseCase updateContatoUseCase(ContatoGateway contatoGateway){
         return  new UpdateContatoUseCaseImpl(contatoGateway);
+    }
+
+    @Bean
+    public AddPhotoUseCase addPhotoUseCase(ContatoGateway contatoGateway){
+        return new AddPhotoUseCaseImpl(contatoGateway);
     }
 }
